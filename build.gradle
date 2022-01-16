@@ -2,6 +2,7 @@ plugins {
     id 'fabric-loom' version '0.10.66' // Fabric-Loom for building mods
     id 'maven-publish' // essential Maven publishing infrastructure
     id 'org.jetbrains.kotlin.jvm' version '1.6.10' // Kotlin support in Gradle
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.6.10' // kotlinx.serialization support
 }
 
 // import from gradle.properties
