@@ -1,0 +1,39 @@
+{
+    "schemaVersion": 1,
+    "id": "goldenforge",
+    "version": "v1.0.0-SNAPSHOT",
+    "name": "GoldenForge",
+    "description": "A Fabric mod that adds semi-realistic metal production, alloy forgery, lots of metals and alloys and much, much more!",
+    "authors": [
+        "RedGrapefruit09"
+    ],
+    "contact": {
+        "website": "https://redgrapefruit09.github.io",
+        "repo": "https://github.com/RedGrapefruit09/GoldenForge"
+    },
+    "license": "MIT",
+    "environment": "*",
+    "entrypoints": {
+        "client": [
+            {
+                "adapter": "kotlin",
+                "value": "com.redgrapefruit.goldenforge.client.GoldenForgeClient"
+            }
+        ],
+        "main": [
+            {
+                "adapter": "kotlin",
+                "value": "com.redgrapefruit.goldenforge.GoldenForge"
+            }
+        ]
+    },
+    "mixins": [
+        "goldenforge.mixins.json"
+    ],
+    "depends": {
+        "fabricloader": ">=0.12.12",
+        "fabric": "*",
+        "minecraft": "1.18.x",
+        "fabric-language-kotlin": ">=1.7.1+kotlin.1.6.10"
+    }
+}
