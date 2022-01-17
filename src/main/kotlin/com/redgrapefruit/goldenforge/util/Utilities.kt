@@ -2,8 +2,10 @@ package com.redgrapefruit.goldenforge.util
 
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.util.Identifier
+import net.minecraft.util.Language
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
+import kotlin.random.Random
 
 // Miscellaneous utilities
 
@@ -32,3 +34,14 @@ fun FabricLoader.getModVersion(mod: String): String {
 /** Converts this [String] into an [Identifier] with the namespace being [MOD_ID] */
 inline val String.id: Identifier
     get() = Identifier(MOD_ID, this)
+
+inline fun applyChance(chance: Int, action: () -> Unit) {
+    if (Random.nextInt(101) <= chance) {
+        action.invoke()
+    }
+}
+
+/** Translates the given translation [key] into the current game language using the lang file's contents. */
+fun translate(key: String): String {
+    return Language.getInstance().get(key)
+}

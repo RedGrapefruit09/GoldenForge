@@ -14,15 +14,21 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import kotlin.random.Random
 
+/** A shared JSON configuration for a type of metal. */
 @Serializable
 data class MetalConfig(
+    /** All configured ore drops for this metal. */
     val drops: List<MetalOreDrop>
 )
 
+/** A component of [MetalConfig] that stores data about items dropped by breaking the metal's ore. */
 @Serializable
 data class MetalOreDrop(
-    val id: String,
+    /** The ID form of the dropped item, for example, `minecraft:shears` */
+    val item: String,
+    /** The _percentage_ chance of the drop */
     val chance: Int,
+    /** The fixed/random amount of the item that should be dropped */
     val amount: Range
 )
 
@@ -42,9 +48,9 @@ data class MetalOreDrop(
 @Serializable
 open class Range(
     /** Minimal value in this range */
-    private val min: Int,
+    val min: Int,
     /** Maximal value in this range */
-    private val max: Int,
+    val max: Int,
 ) : KSerializer<Range> {
 
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("Range", PrimitiveKind.STRING)
