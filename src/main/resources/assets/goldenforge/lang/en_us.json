@@ -1,4 +1,6 @@
 {
     "tooltip_content.goldenforge.ore_drops_header": "Drops the following fragments:",
-    "tooltip_content.goldenforge.ore_drop_label": "|translation| (|chance|% chance, drops from |min| to |max|)."
+    "tooltip_content.goldenforge.ore_drop_label": "|translation| (|chance|% chance, drops from |min| to |max|).",
+
+    "block.goldenforge.steel_ore": "Steel Ore"
 }

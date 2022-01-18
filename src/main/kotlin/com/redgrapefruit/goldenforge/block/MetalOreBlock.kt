@@ -4,7 +4,7 @@ import com.redgrapefruit.datapipe.ResourceHandle
 import com.redgrapefruit.goldenforge.core.MetalConfig
 import com.redgrapefruit.goldenforge.core.MetalConfigLoader
 import com.redgrapefruit.goldenforge.util.applyChance
-import com.redgrapefruit.goldenforge.util.id
+import com.redgrapefruit.goldenforge.util.parsedId
 import com.redgrapefruit.goldenforge.util.translate
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
@@ -41,7 +41,7 @@ class MetalOreBlock(settings: Settings, name: String) : Block(settings) {
 
         config.drops.forEach { drop ->
             applyChance(drop.chance) { // account for the chance
-                val item = Registry.ITEM.get(drop.item.id) // query the item registry to find the specified item instance
+                val item = Registry.ITEM.get(drop.item.parsedId) // query the item registry to find the specified item instance
                 val amount = drop.amount.randomize() // obtain the exact dropped amount
                 val entity = ItemEntity(world, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), ItemStack(item, amount))
                 world.spawnEntity(entity) // spawn the item in the world
@@ -63,7 +63,7 @@ class MetalOreBlock(settings: Settings, name: String) : Block(settings) {
 
         // Display the details about every ore drop
         config.drops.forEach { drop ->
-            val item = Registry.ITEM.get(drop.item.id) // queue item from registry
+            val item = Registry.ITEM.get(drop.item.parsedId) // queue item from registry
 
             tooltip += LiteralText( // display the translation, replacing the placeholders with actual data
                 translate("tooltip_content.goldenforge.ore_drop_label")

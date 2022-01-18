@@ -51,8 +51,9 @@ open class Range(
     val min: Int,
     /** Maximal value in this range */
     val max: Int,
-) : KSerializer<Range> {
+) /*: KSerializer<Range>*/ {
 
+    /*
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("Range", PrimitiveKind.STRING)
 
     override fun deserialize(decoder: Decoder): Range {
@@ -76,6 +77,7 @@ open class Range(
         // Else, serialize in the "x-y" format
         encoder.encodeString("$min-$max")
     }
+     */
 
     /** Pick a random (or fixed, in case of [FixedRange]) value from this range */
     open fun randomize(): Int {
@@ -83,23 +85,23 @@ open class Range(
     }
 }
 
+/*
 /** A separately handled subset of a [Range], which isn't random, but fixed. */
 class FixedRange(val fixedValue: Int) : Range(0, 0) {
     override fun randomize(): Int = fixedValue
 }
+ */
+
+private val pipeline = Pipeline // pipeline for MetalConfigLoader
+    .builder<MetalConfig>()
+    .underId("metal_config_loader".id)
+    .storedIn("metal_config")
+    .filterByExtension(".json")
+    .build()
 
 /** A [JsonResourceLoader] for [MetalConfig]s, providing utilities and storing the [Pipeline]. */
-class MetalConfigLoader : JsonResourceLoader<MetalConfig>(MOD_ID, MetalConfig.serializer(), PIPELINE) {
-    companion object {
-        val PIPELINE = Pipeline
-            .builder<MetalConfig>()
-            .underId("metal_config_loader".id)
-            .storedIn("metal_config")
-            .filterByExtension(".json")
-            .build()
-
-        fun handleFor(name: String): ResourceHandle<MetalConfig> {
-            return PIPELINE.resource(name.id)
-        }
+object MetalConfigLoader : JsonResourceLoader<MetalConfig>(MOD_ID, MetalConfig.serializer(), pipeline) {
+    fun handleFor(name: String): ResourceHandle<MetalConfig> {
+        return com.redgrapefruit.goldenforge.core.pipeline.resource(name.id)
     }
 }

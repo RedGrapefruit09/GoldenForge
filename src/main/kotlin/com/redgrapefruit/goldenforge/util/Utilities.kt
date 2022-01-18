@@ -1,8 +1,14 @@
 package com.redgrapefruit.goldenforge.util
 
+import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder
 import net.fabricmc.loader.api.FabricLoader
+import net.minecraft.block.Block
+import net.minecraft.item.BlockItem
+import net.minecraft.item.Item
+import net.minecraft.item.Items
 import net.minecraft.util.Identifier
 import net.minecraft.util.Language
+import net.minecraft.util.registry.Registry
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import kotlin.random.Random
@@ -35,6 +41,11 @@ fun FabricLoader.getModVersion(mod: String): String {
 inline val String.id: Identifier
     get() = Identifier(MOD_ID, this)
 
+/** Converts this [String] into an [Identifier], given that the string has the ID form, for example, "minecraft:shears". */
+inline val String.parsedId: Identifier
+    get() = Identifier.tryParse(this) ?: throw RuntimeException("Invalid Identifier form: '$this'")
+
+/** Executes the given [action] randomly with the inputted percentage [chance]. */
 inline fun applyChance(chance: Int, action: () -> Unit) {
     if (Random.nextInt(101) <= chance) {
         action.invoke()
@@ -44,4 +55,31 @@ inline fun applyChance(chance: Int, action: () -> Unit) {
 /** Translates the given translation [key] into the current game language using the lang file's contents. */
 fun translate(key: String): String {
     return Language.getInstance().get(key)
+}
+
+// Registering / Initialization
+
+/** Item group / Creative tab for the mod's items. */
+val sharedItemGroup = FabricItemGroupBuilder
+    .create("main".id)
+    .icon { Items.IRON_ORE.defaultStack }
+    .build()
+
+/** Base item settings applied to every item. */
+val sharedItemSettings = Item.Settings().group(sharedItemGroup)
+
+/**
+ *  Defines an `object` in the `init` package that performs registering of some type of objects.
+ *  One [IInitializer] should only be responsible for one type of objects.
+ */
+interface IInitializer {
+    /** Run the registering code in the implementation of this method */
+    fun initialize()
+}
+
+fun register(name: String, block: Block) {
+    Registry.register(Registry.BLOCK, name.id, block)
+    val blockItem = BlockItem(block, sharedItemSettings)
+    Registry.register(Registry.ITEM, name.id, blockItem)
+    Item.BLOCK_ITEMS[block] = blockItem // why was this necessary?
 }
