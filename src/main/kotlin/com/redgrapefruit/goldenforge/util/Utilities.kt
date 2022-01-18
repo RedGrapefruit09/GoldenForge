@@ -83,3 +83,7 @@ fun register(name: String, block: Block) {
     Registry.register(Registry.ITEM, name.id, blockItem)
     Item.BLOCK_ITEMS[block] = blockItem // why was this necessary?
 }
+
+fun register(name: String, item: Item) {
+    Registry.register(Registry.ITEM, name.id, item)
+}

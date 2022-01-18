@@ -35,5 +35,8 @@
         "fabric": "*",
         "minecraft": "1.18.x",
         "fabric-language-kotlin": ">=1.7.1+kotlin.1.6.10"
+    },
+    "suggests": {
+        "tooltipfix": "*"
     }
 }

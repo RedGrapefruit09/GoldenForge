@@ -1,6 +1,14 @@
 {
     "tooltip_content.goldenforge.ore_drops_header": "Drops the following fragments:",
     "tooltip_content.goldenforge.ore_drop_label": "|translation| (|chance|% chance, drops from |min| to |max|).",
+    "itemGroup.goldenforge.main": "GoldenForge",
 
-    "block.goldenforge.steel_ore": "Steel Ore"
+    "block.goldenforge.steel_ore": "Steel Ore",
+
+    "item.goldenforge.andesite_fragment": "Andesite Fragment",
+    "item.goldenforge.blackstone_fragment": "Blackstone Fragment",
+    "item.goldenforge.diorite_fragment": "Diorite Fragment",
+    "item.goldenforge.gravel_fragment": "Gravel Fragment",
+    "item.goldenforge.stone_fragment": "Stone Fragment",
+    "item.goldenforge.steel_fragment": "Steel Fragment"
 }

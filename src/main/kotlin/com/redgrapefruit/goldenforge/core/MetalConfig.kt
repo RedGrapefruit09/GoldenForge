@@ -7,11 +7,6 @@ import com.redgrapefruit.goldenforge.util.MOD_ID
 import com.redgrapefruit.goldenforge.util.id
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.descriptors.PrimitiveKind
-import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
-import kotlinx.serialization.descriptors.SerialDescriptor
-import kotlinx.serialization.encoding.Decoder
-import kotlinx.serialization.encoding.Encoder
 import kotlin.random.Random
 
 /** A shared JSON configuration for a type of metal. */
@@ -51,46 +46,12 @@ open class Range(
     val min: Int,
     /** Maximal value in this range */
     val max: Int,
-) /*: KSerializer<Range>*/ {
-
-    /*
-    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("Range", PrimitiveKind.STRING)
-
-    override fun deserialize(decoder: Decoder): Range {
-        // Decode value from string
-        val raw = decoder.decodeString()
-        // If the value isn't formatted like "x-y" (a range), it's a fixed integer represented by the FixedRange type
-        if (!raw.contains('-')) return FixedRange(raw.toInt())
-        // Parse the two parts of the format (first is min, second is max)
-        val parts = raw.split("-")
-        if (parts.size != 2) throw RuntimeException("Failed to parse range from \"$raw\". Invalid format!")
-        // Create resulting range
-        return Range(parts[0].toInt(), parts[1].toInt())
-    }
-
-    override fun serialize(encoder: Encoder, value: Range) {
-        // Serialize as a fixed integer-string for fixed values
-        if (this is FixedRange) {
-            encoder.encodeString(fixedValue.toString())
-            return
-        }
-        // Else, serialize in the "x-y" format
-        encoder.encodeString("$min-$max")
-    }
-     */
-
+) {
     /** Pick a random (or fixed, in case of [FixedRange]) value from this range */
     open fun randomize(): Int {
         return Random.nextInt(min, max + 1)
     }
 }
-
-/*
-/** A separately handled subset of a [Range], which isn't random, but fixed. */
-class FixedRange(val fixedValue: Int) : Range(0, 0) {
-    override fun randomize(): Int = fixedValue
-}
- */
 
 private val pipeline = Pipeline // pipeline for MetalConfigLoader
     .builder<MetalConfig>()

@@ -1,19 +1,51 @@
 {
     "drops": [
         {
-            "item": "minecraft:white_wool",
-            "chance": 80,
+            "item": "goldenforge:steel_fragment",
+            "chance": 100,
             "amount": {
                 "min": 1,
-                "max": 3
+                "max": 4
             }
         },
         {
-            "item": "minecraft:black_wool",
-            "chance": 40,
+            "item": "goldenforge:stone_fragment",
+            "chance": 90,
             "amount": {
                 "min": 2,
+                "max": 6
+            }
+        },
+        {
+            "item": "goldenforge:andesite_fragment",
+            "chance": 20,
+            "amount": {
+                "min": 1,
+                "max": 2
+            }
+        },
+        {
+            "item": "goldenforge:blackstone_fragment",
+            "chance": 45,
+            "amount": {
+                "min": 1,
                 "max": 4
+            }
+        },
+        {
+            "item": "goldenforge:diorite_fragment",
+            "chance": 15,
+            "amount": {
+                "min": 1,
+                "max": 2
+            }
+        },
+        {
+            "item": "goldenforge:gravel_fragment",
+            "chance": 60,
+            "amount": {
+                "min": 1,
+                "max": 5
             }
         }
     ]
