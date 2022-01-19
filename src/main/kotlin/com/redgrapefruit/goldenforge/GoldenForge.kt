@@ -3,6 +3,7 @@ package com.redgrapefruit.goldenforge
 import com.redgrapefruit.datapipe.PipeResourceLoader
 import com.redgrapefruit.goldenforge.core.MetalConfigLoader
 import com.redgrapefruit.goldenforge.init.ModBlocks
+import com.redgrapefruit.goldenforge.init.ModFeatures
 import com.redgrapefruit.goldenforge.init.ModItems
 import com.redgrapefruit.goldenforge.util.MOD_ID
 import com.redgrapefruit.goldenforge.util.getModVersion
@@ -14,8 +15,9 @@ object GoldenForge : ModInitializer {
     override fun onInitialize() {
         PipeResourceLoader.registerServer(MetalConfigLoader)
 
-        ModBlocks.initialize()
         ModItems.initialize()
+        ModBlocks.initialize()
+        ModFeatures.initialize()
 
         logger.info("Loaded GoldenForge ${loader.getModVersion(MOD_ID)}.")
     }

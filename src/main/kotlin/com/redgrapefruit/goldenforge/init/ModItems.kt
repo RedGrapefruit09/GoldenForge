@@ -1,7 +1,7 @@
 package com.redgrapefruit.goldenforge.init
 
 import com.redgrapefruit.goldenforge.util.IInitializer
-import com.redgrapefruit.goldenforge.util.register
+import com.redgrapefruit.goldenforge.util.registerItem
 import com.redgrapefruit.goldenforge.util.sharedItemSettings
 import net.minecraft.item.Item
 
@@ -17,11 +17,11 @@ object ModItems : IInitializer {
     val STEEL_FRAGMENT = Item(sharedItemSettings)
 
     override fun initialize() {
-        register("andesite_fragment", ANDESITE_FRAGMENT)
-        register("blackstone_fragment", BLACKSTONE_FRAGMENT)
-        register("diorite_fragment", DIORITE_FRAGMENT)
-        register("gravel_fragment", GRAVEL_FRAGMENT)
-        register("stone_fragment", STONE_FRAGMENT)
-        register("steel_fragment", STEEL_FRAGMENT)
+        registerItem("andesite_fragment", ANDESITE_FRAGMENT)
+        registerItem("blackstone_fragment", BLACKSTONE_FRAGMENT)
+        registerItem("diorite_fragment", DIORITE_FRAGMENT)
+        registerItem("gravel_fragment", GRAVEL_FRAGMENT)
+        registerItem("stone_fragment", STONE_FRAGMENT)
+        registerItem("steel_fragment", STEEL_FRAGMENT)
     }
 }
