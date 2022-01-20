@@ -23,7 +23,7 @@ import net.minecraft.world.BlockView
 import net.minecraft.world.World
 
 /** Handles item-dropping functionality and displays the relevant settings in its tooltip. */
-class MetalOreBlock(settings: Settings, name: String) : Block(settings) {
+class MetalOreBlock(settings: Settings, name: String, private val ds: Boolean = false) : Block(settings) {
     private val handle: ResourceHandle<MetalConfig> = MetalConfigLoader.handleFor(name)
 
     override fun afterBreak(
@@ -66,6 +66,7 @@ class MetalOreBlock(settings: Settings, name: String) : Block(settings) {
             val item = Registry.ITEM.get(drop.item.parsedId) // queue item from registry
 
             tooltip += LiteralText( // display the translation, replacing the placeholders with actual data
+                "- " + // unordered list character
                 translate("tooltip_content.goldenforge.ore_drop_label")
                 .replace("|translation|", translate(item.translationKey))
                 .replace("|chance|", drop.chance.toString())

@@ -16,9 +16,11 @@ import net.minecraft.world.gen.feature.OreFeatureConfig
 object ModFeatures : IInitializer {
     // Configured features
     val CONFIGURED_STEEL_ORE = Feature.ORE.configure(OreFeatureConfig(
-        OreConfiguredFeatures.STONE_ORE_REPLACEABLES, // to be replaced with variant rule tests
-        ModBlocks.STEEL_ORE.defaultState,
-        6))
+        listOf(
+            OreFeatureConfig.createTarget(OreConfiguredFeatures.STONE_ORE_REPLACEABLES, ModBlocks.STEEL_ORE.defaultState),
+            OreFeatureConfig.createTarget(OreConfiguredFeatures.DEEPSLATE_ORE_REPLACEABLES, ModBlocks.DEEPSLATE_STEEL_ORE.defaultState)
+        ),
+        7))
 
     // Placed features
     val PLACED_STEEL_ORE = CONFIGURED_STEEL_ORE.withPlacement(
