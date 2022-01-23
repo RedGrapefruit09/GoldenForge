@@ -2,11 +2,11 @@ package com.redgrapefruit.goldenforge.item
 
 import com.redgrapefruit.goldenforge.util.MOD_ID
 import com.redgrapefruit.goldenforge.util.sharedItemSettings
+import com.redgrapefruit.goldenforge.util.sharedRandom
 import com.redgrapefruit.itemnbt3.CustomData
 import com.redgrapefruit.itemnbt3.DataClient
-import com.redgrapefruit.itemnbt3.linking.DataLink
-import com.redgrapefruit.itemnbt3.specification.Specification
 import net.minecraft.client.item.TooltipContext
+import net.minecraft.entity.Entity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NbtCompound
@@ -14,9 +14,19 @@ import net.minecraft.text.Text
 import net.minecraft.text.TranslatableText
 import net.minecraft.util.Formatting
 import net.minecraft.world.World
-import kotlin.random.Random
 
-class FragmentItem : Item(sharedItemSettings) {
+class FragmentItem : Item(sharedItemSettings.maxCount(1)) {
+    override fun inventoryTick(stack: ItemStack, world: World, entity: Entity, slot: Int, selected: Boolean) {
+        if (world.isClient) return
+
+        FragmentItemComponent.use(stack) {
+            if (!rarityInitialized) {
+                rarity = FragmentRarity.pick()
+                rarityInitialized = true
+            }
+        }
+    }
+
     override fun appendTooltip(
         stack: ItemStack,
         world: World?,
@@ -30,41 +40,37 @@ class FragmentItem : Item(sharedItemSettings) {
 }
 
 data class FragmentItemComponent(
-    var rarity: FragmentRarity = FragmentRarity.NULL
+    var rarity: FragmentRarity = FragmentRarity.COMMON,
+    var rarityInitialized: Boolean = false
 ) : CustomData {
 
     override fun getNbtCategory(): String = "FragmentItemComponent"
 
     override fun readNbt(nbt: NbtCompound) {
         rarity = FragmentRarity.valueOf(nbt.getString("Rarity"))
+        rarityInitialized = nbt.getBoolean("Rarity Initialized")
     }
 
     override fun writeNbt(nbt: NbtCompound) {
         nbt.putString("Rarity", rarity.name)
+        nbt.putBoolean("Rarity Initialized", rarityInitialized)
     }
 
     companion object {
-        private val spec = Specification.create(FragmentItemComponent::class.java)
-        private val link = DataLink.create(FragmentItemComponent::class.java)
-
         fun use(stack: ItemStack, action: FragmentItemComponent.() -> Unit) {
-            DataClient.use(stack, spec, link, FragmentItemComponent(), action)
+            DataClient.use(::FragmentItemComponent, stack, action)
         }
     }
 }
 
 /** The 8 tiers of rarities for fragments. Picked randomly */
 enum class FragmentRarity(val formatting: Formatting) {
-    NULL(Formatting.WHITE), /** placeholder value */
-
-    DAMAGED(Formatting.DARK_RED),
     COMMON(Formatting.WHITE),
-    UNCOMMON(Formatting.DARK_GRAY),
+    UNCOMMON(Formatting.GRAY),
     RARE(Formatting.BLUE),
     EPIC(Formatting.DARK_PURPLE),
     MYTHIC(Formatting.DARK_RED),
-    LEGENDARY(Formatting.YELLOW),
-    GODLY(Formatting.OBFUSCATED);
+    LEGENDARY(Formatting.YELLOW);
 
     fun getTranslationKey(): String {
         return "rarity.$MOD_ID.${name.lowercase()}"
@@ -72,23 +78,14 @@ enum class FragmentRarity(val formatting: Formatting) {
 
     companion object {
         fun pick(): FragmentRarity {
-            val k = Random.nextInt(1, 1001) // base random value
-
-            // chance values noted below
-            return when {
-                k.between(1, 75) -> DAMAGED // 7.5%
-                k.between(76, 650) -> COMMON // 57.5%
-                k.between(651, 800) -> UNCOMMON // 15%
-                k.between(801, 875) -> RARE // 7.5%
-                k.between(876, 925) -> EPIC // 5%
-                k.between(926, 960) -> MYTHIC // 3.5%
-                k.between(961, 985) -> LEGENDARY // 2.5%
-                else -> GODLY // 1.5%
+            return when (sharedRandom.nextInt(100)) {
+                in 0..50 -> COMMON // 50%
+                in 51..70 -> UNCOMMON // 20%
+                in 71..82 -> RARE // 12%
+                in 83..92 -> EPIC // 9%
+                in 93..97 -> MYTHIC // 5%
+                else -> LEGENDARY // 3%
             }
         }
     }
-}
-
-private fun Int.between(a: Int, b: Int): Boolean {
-    return this in a..b
 }

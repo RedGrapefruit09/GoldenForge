@@ -1,5 +1,6 @@
 package com.redgrapefruit.goldenforge.init
 
+import com.redgrapefruit.goldenforge.item.FragmentItem
 import com.redgrapefruit.goldenforge.util.IInitializer
 import com.redgrapefruit.goldenforge.util.registerItem
 import com.redgrapefruit.goldenforge.util.sharedItemSettings
@@ -14,7 +15,7 @@ object ModItems : IInitializer {
     val GRAVEL_FRAGMENT = Item(sharedItemSettings)
     val STONE_FRAGMENT = Item(sharedItemSettings)
 
-    val STEEL_FRAGMENT = Item(sharedItemSettings)
+    val STEEL_FRAGMENT = FragmentItem()
 
     override fun initialize() {
         registerItem("andesite_fragment", ANDESITE_FRAGMENT)

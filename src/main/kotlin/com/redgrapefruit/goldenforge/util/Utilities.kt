@@ -8,10 +8,6 @@ import net.minecraft.block.Block
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
 import net.minecraft.item.Items
-import net.minecraft.text.LiteralText
-import net.minecraft.text.MutableText
-import net.minecraft.text.Text
-import net.minecraft.util.Formatting
 import net.minecraft.util.Identifier
 import net.minecraft.util.Language
 import net.minecraft.util.registry.BuiltinRegistries
@@ -20,6 +16,9 @@ import net.minecraft.util.registry.RegistryKey
 import net.minecraft.world.gen.GenerationStep
 import net.minecraft.world.gen.feature.ConfiguredFeature
 import net.minecraft.world.gen.feature.PlacedFeature
+import net.minecraft.world.gen.random.AbstractRandom
+import net.minecraft.world.gen.random.RandomSeed
+import net.minecraft.world.gen.random.Xoroshiro128PlusPlusRandom
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import kotlin.random.Random
@@ -115,3 +114,11 @@ fun registerOreBiomeModification(name: String) {
         GenerationStep.Feature.UNDERGROUND_ORES,
         RegistryKey.of(Registry.PLACED_FEATURE_KEY, name.id))
 }
+
+// Randomness
+
+/**
+ * A more advanced (Xoroshiro 128 ++) random implementation for this mod.
+ * Initialized lazily and captures the current time as the base for the seed.
+ */
+val sharedRandom: AbstractRandom by lazy { Xoroshiro128PlusPlusRandom(RandomSeed.getSeed()) }
