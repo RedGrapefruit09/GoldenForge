@@ -3,6 +3,7 @@ package com.redgrapefruit.goldenforge.item
 import com.redgrapefruit.goldenforge.util.MOD_ID
 import com.redgrapefruit.goldenforge.util.sharedItemSettings
 import com.redgrapefruit.goldenforge.util.sharedRandom
+import com.redgrapefruit.goldenforge.util.translate
 import com.redgrapefruit.itemnbt3.CustomData
 import com.redgrapefruit.itemnbt3.DataClient
 import net.minecraft.client.item.TooltipContext
@@ -10,6 +11,7 @@ import net.minecraft.entity.Entity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NbtCompound
+import net.minecraft.text.LiteralText
 import net.minecraft.text.Text
 import net.minecraft.text.TranslatableText
 import net.minecraft.util.Formatting
@@ -24,6 +26,8 @@ class FragmentItem : Item(sharedItemSettings.maxCount(1)) {
                 rarity = FragmentRarity.pick()
                 rarityInitialized = true
             }
+
+            age++
         }
     }
 
@@ -35,13 +39,28 @@ class FragmentItem : Item(sharedItemSettings.maxCount(1)) {
     ) {
         FragmentItemComponent.use(stack) {
             tooltip += TranslatableText(rarity.getTranslationKey()).formatted(rarity.formatting)
+
+
+            tooltip += LiteralText(
+                translate("tooltip_content.goldenforge.age_label")
+                .replace("|value|", convertAgeToMinutes(age).toString())
+                + if (convertAgeToMinutes(age) > 1) "s" else "")
         }
+    }
+
+    private fun convertAgeToMinutes(age: Int): Int {
+        var out = age / (20 /* tick length */ * 60 /* minute length */)
+
+        if (out < 0) out = 0
+
+        return out
     }
 }
 
 data class FragmentItemComponent(
     var rarity: FragmentRarity = FragmentRarity.COMMON,
-    var rarityInitialized: Boolean = false
+    var rarityInitialized: Boolean = false,
+    var age: Int = 0
 ) : CustomData {
 
     override fun getNbtCategory(): String = "FragmentItemComponent"
@@ -49,11 +68,13 @@ data class FragmentItemComponent(
     override fun readNbt(nbt: NbtCompound) {
         rarity = FragmentRarity.valueOf(nbt.getString("Rarity"))
         rarityInitialized = nbt.getBoolean("Rarity Initialized")
+        age = nbt.getInt("Age")
     }
 
     override fun writeNbt(nbt: NbtCompound) {
         nbt.putString("Rarity", rarity.name)
         nbt.putBoolean("Rarity Initialized", rarityInitialized)
+        nbt.putInt("Age", age)
     }
 
     companion object {
