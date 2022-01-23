@@ -5,7 +5,11 @@ plugins {
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.6.10' // kotlinx.serialization support
 }
 
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
 // import from gradle.properties
+archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
@@ -14,9 +18,12 @@ repositories {
     maven {
         name = "RedGrapefruit09's Maven"
         url = "https://redgrapefruit09.github.io/maven"
-        content {
-            includeGroup "com.redgrapefruit.datapipe"
-        }
+    }
+
+    // CottonMC Maven repository with LibGUI
+    maven {
+        name = "CottonMC"
+        url = "https://server.bbkr.space/artifactory/libs-release"
     }
 }
 
@@ -29,7 +36,9 @@ dependencies {
     // Dependencies. See gradle.properties
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
     modImplementation "net.fabricmc:fabric-language-kotlin:${project.fabric_language_kotlin_version}"
-    modImplementation "com.redgrapefruit.datapipe:datapipe:${project.datapipe_version}"
+    modImplementation include("com.redgrapefruit.datapipe:datapipe:${project.datapipe_version}")
+    modImplementation include("io.github.cottonmc:LibGui:${project.libgui_version}")
+    modImplementation include("com.redgrapefruit.itemnbt:itemnbt:${project.itemnbt_version}")
 }
 
 processResources {

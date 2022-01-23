@@ -8,6 +8,10 @@ import net.minecraft.block.Block
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
 import net.minecraft.item.Items
+import net.minecraft.text.LiteralText
+import net.minecraft.text.MutableText
+import net.minecraft.text.Text
+import net.minecraft.util.Formatting
 import net.minecraft.util.Identifier
 import net.minecraft.util.Language
 import net.minecraft.util.registry.BuiltinRegistries
