@@ -1,6 +1,6 @@
 package com.redgrapefruit.goldenforge.item
 
-import com.redgrapefruit.goldenforge.util.MOD_ID
+import com.redgrapefruit.goldenforge.util.ModID
 import com.redgrapefruit.goldenforge.util.sharedItemSettings
 import com.redgrapefruit.goldenforge.util.sharedRandom
 import com.redgrapefruit.goldenforge.util.translate
@@ -40,11 +40,14 @@ class FragmentItem : Item(sharedItemSettings.maxCount(1)) {
         FragmentItemComponent.use(stack) {
             tooltip += TranslatableText(rarity.getTranslationKey()).formatted(rarity.formatting)
 
-
             tooltip += LiteralText(
                 translate("tooltip_content.goldenforge.age_label")
                 .replace("|value|", convertAgeToMinutes(age).toString())
                 + if (convertAgeToMinutes(age) > 1) "s" else "")
+
+            tooltip += TranslatableText("tooltip_content.goldenforge.state_label")
+                .append(TranslatableText(getTranslationKeyForState()))
+                .formatted(if (clean) Formatting.WHITE else Formatting.GRAY)
         }
     }
 
@@ -60,7 +63,8 @@ class FragmentItem : Item(sharedItemSettings.maxCount(1)) {
 data class FragmentItemComponent(
     var rarity: FragmentRarity = FragmentRarity.COMMON,
     var rarityInitialized: Boolean = false,
-    var age: Int = 0
+    var age: Int = 0,
+    var clean: Boolean = false
 ) : CustomData {
 
     override fun getNbtCategory(): String = "FragmentItemComponent"
@@ -69,12 +73,19 @@ data class FragmentItemComponent(
         rarity = FragmentRarity.valueOf(nbt.getString("Rarity"))
         rarityInitialized = nbt.getBoolean("Rarity Initialized")
         age = nbt.getInt("Age")
+        clean = nbt.getBoolean("Clean")
     }
 
     override fun writeNbt(nbt: NbtCompound) {
         nbt.putString("Rarity", rarity.name)
         nbt.putBoolean("Rarity Initialized", rarityInitialized)
         nbt.putInt("Age", age)
+        nbt.putBoolean("Clean", clean)
+    }
+
+    fun getTranslationKeyForState(): String {
+        val k = if (clean) "clean" else "dirty"
+        return "fragment_state.goldenforge.$k"
     }
 
     companion object {
@@ -94,7 +105,7 @@ enum class FragmentRarity(val formatting: Formatting) {
     LEGENDARY(Formatting.YELLOW);
 
     fun getTranslationKey(): String {
-        return "rarity.$MOD_ID.${name.lowercase()}"
+        return "rarity.$ModID.${name.lowercase()}"
     }
 
     companion object {

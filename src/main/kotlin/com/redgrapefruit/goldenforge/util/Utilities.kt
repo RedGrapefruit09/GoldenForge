@@ -5,14 +5,17 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.block.Block
+import net.minecraft.block.entity.BlockEntityType
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
+import net.minecraft.item.ItemGroup
 import net.minecraft.item.Items
 import net.minecraft.util.Identifier
 import net.minecraft.util.Language
 import net.minecraft.util.registry.BuiltinRegistries
 import net.minecraft.util.registry.Registry
 import net.minecraft.util.registry.RegistryKey
+import net.minecraft.world.World
 import net.minecraft.world.gen.GenerationStep
 import net.minecraft.world.gen.feature.ConfiguredFeature
 import net.minecraft.world.gen.feature.PlacedFeature
@@ -26,13 +29,13 @@ import kotlin.random.Random
 // Miscellaneous utilities
 
 /** Typed mod ID, use for Identifiers */
-const val MOD_ID = "goldenforge"
+const val ModID = "goldenforge"
 
 /** Pretty full name of the mod */
-const val MOD_NAME = "GoldenForge"
+const val ModName = "GoldenForge"
 
 /** Shared [Logger] used by the mod. */
-val logger: Logger = LogManager.getLogger(MOD_NAME)
+val logger: Logger = LogManager.getLogger(ModName)
 
 /** Easily accessible [FabricLoader] instance upon demand. */
 val loader: FabricLoader by lazy { FabricLoader.getInstance() }
@@ -47,9 +50,9 @@ fun FabricLoader.getModVersion(mod: String): String {
         .friendlyString
 }
 
-/** Converts this [String] into an [Identifier] with the namespace being [MOD_ID] */
+/** Converts this [String] into an [Identifier] with the namespace being [ModID] */
 inline val String.id: Identifier
-    get() = Identifier(MOD_ID, this)
+    get() = Identifier(ModID, this)
 
 /** Converts this [String] into an [Identifier], given that the string has the ID form, for example, "minecraft:shears". */
 inline val String.parsedId: Identifier
@@ -67,16 +70,18 @@ fun translate(key: String): String {
     return Language.getInstance().get(key)
 }
 
+val World.isServer get() = !isClient
+
 // Registering / Initialization
 
 /** Item group / Creative tab for the mod's items. */
-val sharedItemGroup = FabricItemGroupBuilder
+val sharedItemGroup: ItemGroup = FabricItemGroupBuilder
     .create("main".id)
     .icon { Items.IRON_ORE.defaultStack }
     .build()
 
 /** Base item settings applied to every item. */
-val sharedItemSettings = Item.Settings().group(sharedItemGroup)
+val sharedItemSettings: Item.Settings = Item.Settings().group(sharedItemGroup)
 
 /**
  *  Defines an `object` in the `init` package that performs registering of some type of objects.
@@ -85,6 +90,12 @@ val sharedItemSettings = Item.Settings().group(sharedItemGroup)
 interface IInitializer {
     /** Run the registering code in the implementation of this method */
     fun initialize()
+}
+
+/** A variation of [IInitializer] for the client side. */
+interface IClientInitializer {
+    /** Register client-side code */
+    fun initializeClient()
 }
 
 // Registering Helpers
@@ -113,6 +124,10 @@ fun registerOreBiomeModification(name: String) {
         BiomeSelectors.foundInOverworld(),
         GenerationStep.Feature.UNDERGROUND_ORES,
         RegistryKey.of(Registry.PLACED_FEATURE_KEY, name.id))
+}
+
+fun registerBlockEntity(name: String, type: BlockEntityType<*>) {
+    Registry.register(Registry.BLOCK_ENTITY_TYPE, name.id, type)
 }
 
 // Randomness

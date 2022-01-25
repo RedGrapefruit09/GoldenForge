@@ -3,6 +3,7 @@
     "tooltip_content.goldenforge.ore_drop_label": "|translation| (|chance|% chance, drops from |min| to |max|).",
     "tooltip_content.goldenforge.rarity_label": "Rarity: ",
     "tooltip_content.goldenforge.age_label": "Age: |value| minute",
+    "tooltip_content.goldenforge.state_label": "State: ",
     "itemGroup.goldenforge.main": "GoldenForge",
 
     "rarity.goldenforge.common": "Common",
@@ -12,8 +13,12 @@
     "rarity.goldenforge.mythic": "Mythic",
     "rarity.goldenforge.legendary": "Legendary",
 
+    "fragment_state.goldenforge.dirty": "Dirty",
+    "fragment_state.goldenforge.clean": "Clean",
+
     "block.goldenforge.steel_ore": "Steel Ore",
     "block.goldenforge.deepslate_steel_ore": "Deepslate Steel Ore",
+    "block.goldenforge.fragment_cleaner": "Fragment Cleaner",
 
     "item.goldenforge.andesite_fragment": "Andesite Fragment",
     "item.goldenforge.blackstone_fragment": "Blackstone Fragment",

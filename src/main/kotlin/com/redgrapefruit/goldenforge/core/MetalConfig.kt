@@ -3,7 +3,7 @@ package com.redgrapefruit.goldenforge.core
 import com.redgrapefruit.datapipe.JsonResourceLoader
 import com.redgrapefruit.datapipe.Pipeline
 import com.redgrapefruit.datapipe.ResourceHandle
-import com.redgrapefruit.goldenforge.util.MOD_ID
+import com.redgrapefruit.goldenforge.util.ModID
 import com.redgrapefruit.goldenforge.util.id
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
@@ -61,7 +61,7 @@ private val pipeline = Pipeline // pipeline for MetalConfigLoader
     .build()
 
 /** A [JsonResourceLoader] for [MetalConfig]s, providing utilities and storing the [Pipeline]. */
-object MetalConfigLoader : JsonResourceLoader<MetalConfig>(MOD_ID, MetalConfig.serializer(), pipeline) {
+object MetalConfigLoader : JsonResourceLoader<MetalConfig>(ModID, MetalConfig.serializer(), pipeline) {
     fun handleFor(name: String): ResourceHandle<MetalConfig> {
         return com.redgrapefruit.goldenforge.core.pipeline.resource(name.id)
     }
