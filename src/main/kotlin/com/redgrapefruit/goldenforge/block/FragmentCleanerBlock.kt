@@ -6,6 +6,8 @@ import net.minecraft.block.Block
 import net.minecraft.block.BlockEntityProvider
 import net.minecraft.block.BlockState
 import net.minecraft.block.entity.BlockEntity
+import net.minecraft.block.entity.BlockEntityTicker
+import net.minecraft.block.entity.BlockEntityType
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.ItemPlacementContext
 import net.minecraft.screen.NamedScreenHandlerFactory
@@ -38,6 +40,14 @@ class FragmentCleanerBlock(settings: Settings) : Block(settings), BlockEntityPro
 
     override fun createBlockEntity(pos: BlockPos, state: BlockState): BlockEntity {
         return FragmentCleanerBlockEntity(pos, state)
+    }
+
+    override fun <T : BlockEntity> getTicker(
+        world: World,
+        state: BlockState,
+        type: BlockEntityType<T>
+    ): BlockEntityTicker<T> {
+        return FragmentCleanerBlockEntity as BlockEntityTicker<T> // unsafe cast doesn't really matter here
     }
 
     private lateinit var facing: DirectionProperty

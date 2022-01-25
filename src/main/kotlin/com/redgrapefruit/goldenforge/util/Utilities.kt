@@ -5,11 +5,9 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.block.Block
+import net.minecraft.block.entity.AbstractFurnaceBlockEntity
 import net.minecraft.block.entity.BlockEntityType
-import net.minecraft.item.BlockItem
-import net.minecraft.item.Item
-import net.minecraft.item.ItemGroup
-import net.minecraft.item.Items
+import net.minecraft.item.*
 import net.minecraft.util.Identifier
 import net.minecraft.util.Language
 import net.minecraft.util.registry.BuiltinRegistries
@@ -70,7 +68,13 @@ fun translate(key: String): String {
     return Language.getInstance().get(key)
 }
 
+/** A helper to make `if (!world.isClient)` look more meaningful */
 val World.isServer get() = !isClient
+
+/** Checks if [stack] is a vanilla fuel, using the furnace's fuel registry under the hood. */
+fun isFuel(stack: ItemStack): Boolean {
+    return AbstractFurnaceBlockEntity.canUseAsFuel(stack)
+}
 
 // Registering / Initialization
 

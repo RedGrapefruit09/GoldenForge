@@ -3,6 +3,7 @@ package com.redgrapefruit.goldenforge.core
 import com.redgrapefruit.datapipe.JsonResourceLoader
 import com.redgrapefruit.datapipe.Pipeline
 import com.redgrapefruit.datapipe.ResourceHandle
+import com.redgrapefruit.goldenforge.item.MetalRarity
 import com.redgrapefruit.goldenforge.util.ModID
 import com.redgrapefruit.goldenforge.util.id
 import kotlinx.serialization.KSerializer
@@ -13,7 +14,11 @@ import kotlin.random.Random
 @Serializable
 data class MetalConfig(
     /** All configured ore drops for this metal. */
-    val drops: List<MetalOreDrop>
+    val drops: List<MetalOreDrop>,
+    /** The exact amount of in-game ticks required for the fragment cleaning process to finish. */
+    val cleaningTime: Int,
+    /** Every percentage chance of failure depending on rarity of the metal */
+    val processFailureChances: Map<MetalRarity, Int>
 )
 
 /** A component of [MetalConfig] that stores data about items dropped by breaking the metal's ore. */
@@ -63,6 +68,6 @@ private val pipeline = Pipeline // pipeline for MetalConfigLoader
 /** A [JsonResourceLoader] for [MetalConfig]s, providing utilities and storing the [Pipeline]. */
 object MetalConfigLoader : JsonResourceLoader<MetalConfig>(ModID, MetalConfig.serializer(), pipeline) {
     fun handleFor(name: String): ResourceHandle<MetalConfig> {
-        return com.redgrapefruit.goldenforge.core.pipeline.resource(name.id)
+        return pipeline.resource(name.id)
     }
 }

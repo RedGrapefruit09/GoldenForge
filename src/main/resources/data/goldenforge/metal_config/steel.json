@@ -48,5 +48,14 @@
                 "max": 5
             }
         }
-    ]
+    ],
+    "cleaningTime": 100,
+    "processFailureChances": {
+        "COMMON": 20,
+        "UNCOMMON": 18,
+        "RARE": 15,
+        "EPIC": 10,
+        "MYTHIC": 6,
+        "LEGENDARY": 3
+    }
 }

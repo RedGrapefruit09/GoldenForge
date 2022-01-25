@@ -1,5 +1,8 @@
 package com.redgrapefruit.goldenforge.item
 
+import com.redgrapefruit.datapipe.ResourceHandle
+import com.redgrapefruit.goldenforge.core.MetalConfig
+import com.redgrapefruit.goldenforge.core.MetalConfigLoader
 import com.redgrapefruit.goldenforge.util.ModID
 import com.redgrapefruit.goldenforge.util.sharedItemSettings
 import com.redgrapefruit.goldenforge.util.sharedRandom
@@ -23,7 +26,7 @@ class FragmentItem : Item(sharedItemSettings.maxCount(1)) {
 
         FragmentItemComponent.use(stack) {
             if (!rarityInitialized) {
-                rarity = FragmentRarity.pick()
+                rarity = MetalRarity.pick()
                 rarityInitialized = true
             }
 
@@ -58,10 +61,20 @@ class FragmentItem : Item(sharedItemSettings.maxCount(1)) {
 
         return out
     }
+
+    companion object {
+        /** Gets the [ResourceHandle] for the [MetalConfig] of a fragment in the given [ItemStack] by hacking on the stack's translation key. */
+        fun getAssociatedResourceHandle(stack: ItemStack): ResourceHandle<MetalConfig> {
+            var name = stack.translationKey
+            name = name.replace("item.$ModID.", "")
+            name = name.replace("_fragment", "")
+            return MetalConfigLoader.handleFor(name)
+        }
+    }
 }
 
 data class FragmentItemComponent(
-    var rarity: FragmentRarity = FragmentRarity.COMMON,
+    var rarity: MetalRarity = MetalRarity.COMMON,
     var rarityInitialized: Boolean = false,
     var age: Int = 0,
     var clean: Boolean = false
@@ -70,7 +83,7 @@ data class FragmentItemComponent(
     override fun getNbtCategory(): String = "FragmentItemComponent"
 
     override fun readNbt(nbt: NbtCompound) {
-        rarity = FragmentRarity.valueOf(nbt.getString("Rarity"))
+        rarity = MetalRarity.valueOf(nbt.getString("Rarity"))
         rarityInitialized = nbt.getBoolean("Rarity Initialized")
         age = nbt.getInt("Age")
         clean = nbt.getBoolean("Clean")
@@ -96,7 +109,7 @@ data class FragmentItemComponent(
 }
 
 /** The 8 tiers of rarities for fragments. Picked randomly */
-enum class FragmentRarity(val formatting: Formatting) {
+enum class MetalRarity(val formatting: Formatting) {
     COMMON(Formatting.WHITE),
     UNCOMMON(Formatting.GRAY),
     RARE(Formatting.BLUE),
@@ -109,7 +122,7 @@ enum class FragmentRarity(val formatting: Formatting) {
     }
 
     companion object {
-        fun pick(): FragmentRarity {
+        fun pick(): MetalRarity {
             return when (sharedRandom.nextInt(100)) {
                 in 0..50 -> COMMON // 50%
                 in 51..70 -> UNCOMMON // 20%
