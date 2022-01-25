@@ -17,6 +17,9 @@ object ModItems : IInitializer {
 
     val STEEL_FRAGMENT = FragmentItem()
 
+    // Misc
+    val RUBBISH = Item(sharedItemSettings.maxCount(64))
+
     override fun initialize() {
         registerItem("andesite_fragment", ANDESITE_FRAGMENT)
         registerItem("blackstone_fragment", BLACKSTONE_FRAGMENT)
@@ -24,5 +27,7 @@ object ModItems : IInitializer {
         registerItem("gravel_fragment", GRAVEL_FRAGMENT)
         registerItem("stone_fragment", STONE_FRAGMENT)
         registerItem("steel_fragment", STEEL_FRAGMENT)
+
+        registerItem("rubbish", RUBBISH)
     }
 }

@@ -25,5 +25,6 @@
     "item.goldenforge.diorite_fragment": "Diorite Fragment",
     "item.goldenforge.gravel_fragment": "Gravel Fragment",
     "item.goldenforge.stone_fragment": "Stone Fragment",
-    "item.goldenforge.steel_fragment": "Steel Fragment"
+    "item.goldenforge.steel_fragment": "Steel Fragment",
+    "item.goldenforge.rubbish": "Rubbish"
 }

@@ -28,6 +28,12 @@ class FragmentCleanerBlock(settings: Settings) : Block(settings), BlockEntityPro
         // 3. Fuel slot
         // 4. Rubbish slot
         const val InventorySize = 4
+
+        // Slot mappings
+        const val Slot_Input = 0
+        const val Slot_Output = 1
+        const val Slot_Fuel = 2
+        const val Slot_Rubbish = 3
     }
 
     override fun createBlockEntity(pos: BlockPos, state: BlockState): BlockEntity {
