@@ -4,6 +4,8 @@
     "tooltip_content.goldenforge.rarity_label": "Rarity: ",
     "tooltip_content.goldenforge.age_label": "Age: |value| minute",
     "tooltip_content.goldenforge.state_label": "State: ",
+    "tooltip_content.goldenforge.quality_label": "Quality: ",
+
     "itemGroup.goldenforge.main": "GoldenForge",
 
     "rarity.goldenforge.common": "Common",
@@ -26,5 +28,6 @@
     "item.goldenforge.gravel_fragment": "Gravel Fragment",
     "item.goldenforge.stone_fragment": "Stone Fragment",
     "item.goldenforge.steel_fragment": "Steel Fragment",
-    "item.goldenforge.rubbish": "Rubbish"
+    "item.goldenforge.rubbish": "Rubbish",
+    "item.goldenforge.steel_plate": "Steel Plate"
 }

@@ -141,3 +141,16 @@ fun registerBlockEntity(name: String, type: BlockEntityType<*>) {
  * Initialized lazily and captures the current time as the base for the seed.
  */
 val sharedRandom: AbstractRandom by lazy { Xoroshiro128PlusPlusRandom(RandomSeed.getSeed()) }
+
+// Constants; math
+
+object Constants {
+    const val SECOND_LENGTH_IN_TICKS = 20
+    const val MINUTE_LENGTH_IN_SECONDS = 60
+    const val MINUTE_LENGTH_IN_TICKS = SECOND_LENGTH_IN_TICKS * MINUTE_LENGTH_IN_SECONDS
+    const val TICK_TO_QUALITY_DIVISOR = 1000
+}
+
+fun ensurePositive(i: Int): Int {
+    return if (i > 0) i else 0
+}

@@ -1,6 +1,7 @@
 package com.redgrapefruit.goldenforge.init
 
 import com.redgrapefruit.goldenforge.item.FragmentItem
+import com.redgrapefruit.goldenforge.item.PlateItem
 import com.redgrapefruit.goldenforge.util.IInitializer
 import com.redgrapefruit.goldenforge.util.registerItem
 import com.redgrapefruit.goldenforge.util.sharedItemSettings
@@ -17,6 +18,9 @@ object ModItems : IInitializer {
 
     val STEEL_FRAGMENT = FragmentItem()
 
+    // Plates
+    val STEEL_PLATE = PlateItem()
+
     // Misc
     val RUBBISH = Item(sharedItemSettings.maxCount(64))
 
@@ -27,6 +31,8 @@ object ModItems : IInitializer {
         registerItem("gravel_fragment", GRAVEL_FRAGMENT)
         registerItem("stone_fragment", STONE_FRAGMENT)
         registerItem("steel_fragment", STEEL_FRAGMENT)
+
+        registerItem("steel_plate", STEEL_PLATE)
 
         registerItem("rubbish", RUBBISH)
     }
