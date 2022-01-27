@@ -26,8 +26,6 @@ class PlateItem : Item(sharedItemSettings.maxCount(1)) {
     }
 
     fun initQuality(fragmentStacks: List<ItemStack>, selfStack: ItemStack) {
-        if (getQuality(selfStack) == 0F) return
-
         selfStack.orCreateNbt.putFloat("Plate Quality", calculatePlateQuality(fragmentStacks))
     }
 

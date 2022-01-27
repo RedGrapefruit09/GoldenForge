@@ -41,12 +41,16 @@ class PlateFactoryMenu(
         panel.add(WItemSlot.of(blockInventory, 6), 1, 3)
         panel.add(WItemSlot.of(blockInventory, 7), 2, 3)
         panel.add(WItemSlot.of(blockInventory, 8), 3, 3)
+
         // Arrow sprite
         panel.add(WSprite("textures/misc/arrow_right.png".id), 5, 2)
+
         // Output slot
         panel.add(WItemSlot.of(blockInventory, PlateFactoryBlock.Slot_Output), 7, 2)
+
         // Fuel slot
         panel.add(WItemSlot.of(blockInventory, PlateFactoryBlock.Slot_Fuel), 6, 5)
+
         // Fuel icon
         panel.add(WSprite("minecraft:textures/item/coal.png".parsedId), 5, 5)
 

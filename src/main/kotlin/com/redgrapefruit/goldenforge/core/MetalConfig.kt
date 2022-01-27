@@ -18,7 +18,11 @@ data class MetalConfig(
     /** The exact amount of in-game ticks required for the fragment cleaning process to finish. */
     val cleaningTime: Int,
     /** Every percentage chance of failure depending on rarity of the metal */
-    val processFailureChances: Map<MetalRarity, Int>
+    val processFailureChances: Map<MetalRarity, Int>,
+    /** The exact amount of in-game ticks required for the plate creation process to finish. */
+    val plateCreationTime: Int,
+    /** The parsed ID form of the plate item corresponding to this metal type */
+    val plateId: String
 )
 
 /** A component of [MetalConfig] that stores data about items dropped by breaking the metal's ore. */

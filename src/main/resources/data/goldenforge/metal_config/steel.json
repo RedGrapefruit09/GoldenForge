@@ -57,5 +57,7 @@
         "EPIC": 10,
         "MYTHIC": 6,
         "LEGENDARY": 3
-    }
+    },
+    "plateCreationTime": 100,
+    "plateId": "goldenforge:steel_plate"
 }
