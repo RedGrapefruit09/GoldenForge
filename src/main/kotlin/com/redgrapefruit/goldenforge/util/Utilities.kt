@@ -33,7 +33,7 @@ const val ModID = "goldenforge"
 const val ModName = "GoldenForge"
 
 /** Shared [Logger] used by the mod. */
-val logger: Logger = LoggerFactory.getLogger("GoldenForge")
+val logger: Logger = LoggerFactory.getLogger(ModName)
 
 /** Easily accessible [FabricLoader] instance upon demand. */
 val loader: FabricLoader by lazy { FabricLoader.getInstance() }
