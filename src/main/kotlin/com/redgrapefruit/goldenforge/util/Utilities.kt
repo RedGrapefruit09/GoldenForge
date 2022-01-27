@@ -20,8 +20,8 @@ import net.minecraft.world.gen.feature.PlacedFeature
 import net.minecraft.world.gen.random.AbstractRandom
 import net.minecraft.world.gen.random.RandomSeed
 import net.minecraft.world.gen.random.Xoroshiro128PlusPlusRandom
-import org.apache.logging.log4j.LogManager
-import org.apache.logging.log4j.Logger
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import kotlin.random.Random
 
 // Miscellaneous utilities
@@ -33,7 +33,7 @@ const val ModID = "goldenforge"
 const val ModName = "GoldenForge"
 
 /** Shared [Logger] used by the mod. */
-val logger: Logger = LogManager.getLogger(ModName)
+val logger: Logger = LoggerFactory.getLogger("GoldenForge")
 
 /** Easily accessible [FabricLoader] instance upon demand. */
 val loader: FabricLoader by lazy { FabricLoader.getInstance() }
