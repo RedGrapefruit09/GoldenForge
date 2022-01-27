@@ -1,6 +1,6 @@
 package com.redgrapefruit.goldenforge.block
 
-import com.redgrapefruit.goldenforge.blockentity.FragmentCleanerBlockEntity
+import com.redgrapefruit.goldenforge.blockentity.PlateFactoryBlockEntity
 import com.redgrapefruit.goldenforge.util.isServer
 import net.minecraft.block.Block
 import net.minecraft.block.BlockEntityProvider
@@ -23,23 +23,21 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Direction
 import net.minecraft.world.World
 
-class FragmentCleanerBlock(settings: Settings) : Block(settings), BlockEntityProvider {
+class PlateFactoryBlock(settings: Settings) : Block(settings), BlockEntityProvider {
     companion object {
-        // 1 Input slot
-        // 1 Output slot
-        // 1 Fuel slot
-        // 1 Rubbish slot
-        const val InventorySize = 4
+        // 9 Input fragment slots
+        // 1 output slot
+        // 1 fuel slot
+        const val InventorySize = 11
 
         // Slot mappings
-        const val Slot_Input = 0
-        const val Slot_Output = 1
-        const val Slot_Fuel = 2
-        const val Slot_Rubbish = 3
+        val Slots_Input = intArrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8)
+        const val Slot_Output = 9
+        const val Slot_Fuel = 10
     }
 
     override fun createBlockEntity(pos: BlockPos, state: BlockState): BlockEntity {
-        return FragmentCleanerBlockEntity(pos, state)
+        return PlateFactoryBlockEntity(pos, state)
     }
 
     override fun <T : BlockEntity> getTicker(
@@ -47,7 +45,7 @@ class FragmentCleanerBlock(settings: Settings) : Block(settings), BlockEntityPro
         state: BlockState,
         type: BlockEntityType<T>
     ): BlockEntityTicker<T> {
-        return FragmentCleanerBlockEntity as BlockEntityTicker<T> // unsafe cast doesn't really matter here
+        return PlateFactoryBlockEntity as BlockEntityTicker<T> // unsafe cast is ok here
     }
 
     private lateinit var facing: DirectionProperty

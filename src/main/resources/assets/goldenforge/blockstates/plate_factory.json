@@ -1,0 +1,19 @@
+{
+    "variants": {
+        "facing=north": {
+            "model": "goldenforge:block/plate_factory"
+        },
+        "facing=east": {
+            "model": "goldenforge:block/plate_factory",
+            "y": 90
+        },
+        "facing=south": {
+            "model": "goldenforge:block/plate_factory",
+            "y": 180
+        },
+        "facing=west": {
+            "model": "goldenforge:block/plate_factory",
+            "y": 270
+        }
+    }
+}

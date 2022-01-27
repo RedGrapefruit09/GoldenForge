@@ -3,7 +3,7 @@
     "textures": {
         "up": "goldenforge:block/machine_top",
         "down": "goldenforge:block/machine_bottom",
-        "north": "goldenforge:block/fragment_cleaner_front",
+        "north": "goldenforge:block/plate_factory_front",
         "east": "goldenforge:block/machine_side",
         "west": "goldenforge:block/machine_side",
         "south": "goldenforge:block/machine_side"

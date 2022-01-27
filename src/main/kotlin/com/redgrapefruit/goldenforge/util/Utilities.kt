@@ -96,12 +96,6 @@ interface IInitializer {
     fun initialize()
 }
 
-/** A variation of [IInitializer] for the client side. */
-interface IClientInitializer {
-    /** Register client-side code */
-    fun initializeClient()
-}
-
 // Registering Helpers
 
 fun registerBlock(name: String, block: Block) {
