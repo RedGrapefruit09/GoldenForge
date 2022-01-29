@@ -73,11 +73,11 @@ class PlateFactoryBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Mo
             val stack = items[idx]
             if (stack.item is FragmentItem) { // are inputs all fragments?
                 FragmentItemComponent.use(stack) {
-                    /*if (!clean) { // are all fragments clean?
+                    if (!clean) { // are all fragments clean?
                         invalidInputs = true
                     } else {
                         signatures += stack.translationKey
-                    }*/
+                    }
                     signatures += stack.translationKey
                 }
             } else {
