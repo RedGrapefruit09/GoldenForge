@@ -59,5 +59,10 @@
         "LEGENDARY": 3
     },
     "plateCreationTime": 100,
-    "plateId": "goldenforge:steel_plate"
+    "plateId": "goldenforge:steel_plate",
+    "impurityAmounts": {
+        "min": 80,
+        "max": 135
+    },
+    "impurityInfluenceFromQuality": 1
 }

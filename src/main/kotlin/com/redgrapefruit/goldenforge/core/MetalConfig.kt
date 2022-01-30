@@ -22,7 +22,11 @@ data class MetalConfig(
     /** The exact amount of in-game ticks required for the plate creation process to finish. */
     val plateCreationTime: Int,
     /** The parsed ID form of the plate item corresponding to this metal type */
-    val plateId: String
+    val plateId: String,
+    /** The range of base gram amounts of impurities in the metal when first put into a container */
+    val impurityAmounts: Range,
+    /** The influence (-) on the base impurity amount for every 1Q */
+    val impurityInfluenceFromQuality: Int
 )
 
 /** A component of [MetalConfig] that stores data about items dropped by breaking the metal's ore. */

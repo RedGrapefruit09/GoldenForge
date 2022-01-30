@@ -78,6 +78,10 @@ fun isFuel(stack: ItemStack): Boolean {
 
 // Registering / Initialization
 
+val IdNull = "null".id
+
+fun Identifier.referencesNull() = this == IdNull
+
 /** Item group / Creative tab for the mod's items. */
 val sharedItemGroup: ItemGroup = FabricItemGroupBuilder
     .create("main".id)

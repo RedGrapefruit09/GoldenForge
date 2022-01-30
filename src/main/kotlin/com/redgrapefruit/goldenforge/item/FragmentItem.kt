@@ -3,10 +3,7 @@ package com.redgrapefruit.goldenforge.item
 import com.redgrapefruit.datapipe.ResourceHandle
 import com.redgrapefruit.goldenforge.core.MetalConfig
 import com.redgrapefruit.goldenforge.core.MetalConfigLoader
-import com.redgrapefruit.goldenforge.util.ModID
-import com.redgrapefruit.goldenforge.util.sharedItemSettings
-import com.redgrapefruit.goldenforge.util.sharedRandom
-import com.redgrapefruit.goldenforge.util.translate
+import com.redgrapefruit.goldenforge.util.*
 import com.redgrapefruit.itemnbt3.CustomData
 import com.redgrapefruit.itemnbt3.DataClient
 import net.minecraft.client.item.TooltipContext
