@@ -1,0 +1,20 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "goldenforge:item/metal_container_empty"
+    },
+    "overrides": [
+        {
+            "predicate": {
+                "container_state": 1
+            },
+            "model": "goldenforge:item/metal_container_full"
+        },
+        {
+            "predicate": {
+                "container_state": 0
+            },
+            "model": "goldenforge:item/metal_container_empty"
+        }
+    ]
+}

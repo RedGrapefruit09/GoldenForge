@@ -1,6 +1,7 @@
 package com.redgrapefruit.goldenforge.init
 
 import com.redgrapefruit.goldenforge.item.FragmentItem
+import com.redgrapefruit.goldenforge.item.MetalContainerItem
 import com.redgrapefruit.goldenforge.item.PlateItem
 import com.redgrapefruit.goldenforge.util.IInitializer
 import com.redgrapefruit.goldenforge.util.registerItem
@@ -23,6 +24,7 @@ object ModItems : IInitializer {
 
     // Misc
     val RUBBISH = Item(sharedItemSettings.maxCount(64))
+    val METAL_CONTAINER = MetalContainerItem()
 
     override fun initialize() {
         registerItem("andesite_fragment", ANDESITE_FRAGMENT)
@@ -35,5 +37,6 @@ object ModItems : IInitializer {
         registerItem("steel_plate", STEEL_PLATE)
 
         registerItem("rubbish", RUBBISH)
+        registerItem("metal_container", METAL_CONTAINER)
     }
 }

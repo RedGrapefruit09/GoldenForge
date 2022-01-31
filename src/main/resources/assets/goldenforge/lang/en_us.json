@@ -36,5 +36,6 @@
     "item.goldenforge.stone_fragment": "Stone Fragment",
     "item.goldenforge.steel_fragment": "Steel Fragment",
     "item.goldenforge.rubbish": "Rubbish",
-    "item.goldenforge.steel_plate": "Steel Plate"
+    "item.goldenforge.steel_plate": "Steel Plate",
+    "item.goldenforge.metal_container": "Metal Container"
 }

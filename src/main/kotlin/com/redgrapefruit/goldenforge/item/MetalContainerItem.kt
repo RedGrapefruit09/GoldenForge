@@ -8,6 +8,9 @@ import com.redgrapefruit.goldenforge.util.sharedItemSettings
 import com.redgrapefruit.itemnbt3.CustomData
 import com.redgrapefruit.itemnbt3.DataClient
 import net.minecraft.client.item.TooltipContext
+import net.minecraft.client.item.UnclampedModelPredicateProvider
+import net.minecraft.client.world.ClientWorld
+import net.minecraft.entity.LivingEntity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NbtCompound
@@ -55,6 +58,18 @@ class MetalContainerItem : Item(sharedItemSettings.maxCount(1)) {
 
     private fun metalRefToTranslationKey(ref: Identifier): String {
         return "metal.$ModID.${ref.path}"
+    }
+
+    companion object : UnclampedModelPredicateProvider {
+        override fun unclampedCall(stack: ItemStack, world: ClientWorld?, entity: LivingEntity?, seed: Int): Float {
+            var hasMetal = false
+
+            MetalContainerComponent.use(stack) {
+                hasMetal = !metalInside.referencesNull()
+            }
+
+            return if (hasMetal) 1.0F else 0.0F
+        }
     }
 }
 
