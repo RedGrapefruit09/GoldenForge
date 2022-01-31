@@ -26,7 +26,15 @@ import net.minecraft.world.World
 
 class MetalFurnaceBlock(settings: Settings) : Block(settings), BlockEntityProvider {
     companion object {
-        const val InventorySize = 1 // placeholder for now
+        // Input (plate) slot
+        // Output (container) slot
+        // Fuel slot
+        const val InventorySize = 3
+
+        // Slot mappings
+        const val Slot_Input = 0
+        const val Slot_Output = 1
+        const val Slot_Fuel = 2
     }
 
     override fun createBlockEntity(pos: BlockPos, state: BlockState): BlockEntity {
