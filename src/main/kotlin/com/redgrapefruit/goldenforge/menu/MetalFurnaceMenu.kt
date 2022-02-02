@@ -39,7 +39,7 @@ class MetalFurnaceMenu(
         // Input => output arrow
         panel.add(WSprite("textures/misc/arrow.png".id), 4, 3)
         // Fuel slot
-        panel.add(WItemSlot.of(blockInventory, FragmentCleanerBlock.Slot_Fuel), 1, 1)
+        panel.add(WItemSlot.of(blockInventory, MetalFurnaceBlock.Slot_Fuel), 1, 1)
         // Fuel icon
         panel.add(WSprite("minecraft:textures/item/coal.png".parsedId), 1, 2)
 

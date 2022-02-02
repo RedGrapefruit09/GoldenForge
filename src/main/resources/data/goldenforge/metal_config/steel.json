@@ -64,5 +64,6 @@
         "min": 80,
         "max": 135
     },
-    "impurityInfluenceFromQuality": 1
+    "impurityInfluenceFromQuality": 1,
+    "furnaceMeltTime": 100
 }
